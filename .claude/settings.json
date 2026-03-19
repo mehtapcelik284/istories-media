@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(list\\(d[''''dependencies''''].keys\\(\\)\\)\\)\")",
+      "Bash(npx expo:*)",
+      "Bash(npm install:*)",
+      "Bash(find /Users/mehtap/Mehtap/Projects/IStoriesMedia -name responsive* -not -path */node_modules/*)",
+      "Bash(npm uninstall:*)",
+      "Bash(./gradlew --stop)",
+      "Bash(watchman watch-del:*)",
+      "Bash(watchman watch-project:*)",
+      "Bash(iconv -f UTF-8 -t UTF-8 /Users/mehtap/Mehtap/Projects/IStoriesMedia/ios/IStoriesMedia/Info.plist)",
+      "Bash(pod install:*)"
+    ]
+  }
+}

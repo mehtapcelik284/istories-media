@@ -3,9 +3,11 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*":          ["./*"],
+      "@theme":       ["./theme/index.ts"],
+      "@theme/*":     ["./theme/*"],
+      "@utils/*":     ["./utils/*"],
+      "@constants/*": ["./constants/*"]
     }
   },
   "include": [
