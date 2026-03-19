@@ -1,9 +1,6 @@
 export const Routes = {
-  tabs: {
-    home:    '/(tabs)/'       as const,
-    explore: '/(tabs)/explore' as const,
-  },
-  modal: '/modal' as const,
+  home:   '/'       as const,
+  shorts: '/shorts' as const,
 } as const;
 
-export type AppRoute = (typeof Routes.tabs)[keyof typeof Routes.tabs] | typeof Routes.modal;
+export type AppRoute = (typeof Routes)[keyof typeof Routes];

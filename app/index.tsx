@@ -1,10 +1,14 @@
+import { Routes } from "@/constants/routes";
 import { Colors } from "@/theme/colors";
 import { Radius } from "@/theme/metrics";
 import { FontSize, FontWeight } from "@/theme/typography";
 import { router, type Href } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <Pressable
@@ -12,9 +16,9 @@ export default function HomeScreen() {
           styles.button,
           pressed && styles.buttonPressed,
         ]}
-        onPress={() => router.push("/shorts" as Href)}
+        onPress={() => router.push(Routes.shorts as Href)}
       >
-        <Text style={styles.buttonText}>Open Shorts</Text>
+        <Text style={styles.buttonText}>{t("home.open_shorts")}</Text>
       </Pressable>
     </View>
   );
