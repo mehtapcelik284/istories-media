@@ -1,50 +1,114 @@
-# Welcome to your Expo app 👋
+# IStoriesMedia — Shorts Video Player Demo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native / Expo demo showcasing a TikTok-style vertical shorts video player. The home screen contains a single button that opens the full-screen shorts feed.
 
-## Get started
+## Tech stack
 
-1. Install dependencies
+| | |
+|---|---|
+| Framework | Expo SDK 54 (React Native 0.81, New Architecture) |
+| Video | expo-video 3.x with `textureView` surface on Android |
+| Navigation | Expo Router v6 (file-based) |
+| Animations | React Native Reanimated 4 |
+| i18n | i18next + react-i18next |
 
-   ```bash
-   npm install
-   ```
+## Prerequisites
 
-2. Start the app
+- Node.js 20+
+- For Android: Android Studio + an Android device or emulator (API 24+)
+- For iOS: Xcode 16+ and CocoaPods (`gem install cocoapods`)
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Setup
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Running on Android
 
-## Learn more
+### First-time build (native build required)
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npx expo run:android
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This compiles the native code and installs the debug APK on the connected device or emulator. Takes a few minutes on first run.
 
-## Join the community
+### Subsequent runs (JS-only changes)
 
-Join our community of developers creating universal apps.
+Start Metro bundler:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx expo start
+```
+
+Then press `a` in the Metro terminal, or open the already-installed app on your device and it will connect automatically.
+
+### Real device
+
+Enable USB Debugging on your Android device and connect via USB before running the command above. Confirm the device is detected:
+
+```bash
+adb devices
+```
+
+### Notes
+
+- Test on a **real device** when possible — video hardware decoding is unavailable on emulators, which can cause sluggish playback and visual artifacts.
+- The build targets `arm64-v8a` and `armeabi-v7a` by default.
+
+## Running on iOS
+
+### First-time build (native build required)
+
+```bash
+npx expo run:ios
+```
+
+This installs Pods (if needed) and builds the app on the iOS Simulator or a connected device.
+
+### Subsequent runs (JS-only changes)
+
+```bash
+npx expo start
+```
+
+Then press `i` in the Metro terminal.
+
+### Clean build (if pod install fails)
+
+```bash
+rm -rf ios/Pods ios/Podfile.lock ios/build
+npx expo run:ios
+```
+
+## App flow
+
+1. Home screen → tap **Open Shorts**
+2. Full-screen vertical video feed opens
+3. Swipe up/down to navigate between videos
+4. Tap the video to pause/resume
+5. Tap the speaker icon (bottom-right) to mute/unmute
+6. Tap **✕** (top-left) to close
+
+## Project structure
+
+```
+app/
+  index.tsx          # Home screen
+  shorts.tsx         # Shorts screen (full-screen modal)
+  _layout.tsx        # Root layout
+components/
+  shorts/
+    ShortsPlayer.tsx # FlatList container, paging, active-index tracking
+    ShortItem.tsx    # Single video item with overlay and pre-render logic
+constants/
+  shorts.ts          # Video IDs and URL helper
+  routes.ts          # Typed route constants
+locales/
+  en.json            # English strings (i18n)
+utils/
+  i18n.ts            # i18next setup
+  responsive.ts      # Screen dimensions and scale helpers
+theme/               # Colors, typography, spacing tokens
+```
